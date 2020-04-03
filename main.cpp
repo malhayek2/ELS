@@ -75,7 +75,7 @@ int main(int argc, char **argv){
     std::string arg(argv[0]);
     std::stringstream ss(arg);
     std::string myText = argv[1]; 
-    std::cout << "open file "  << argv[1] << myText <<std::endl;
+    //std::cout << "open file "  << argv[1] << myText <<std::endl;
     std::ifstream myfile;
     myfile.open (myText);
     std::string str1, str2;
@@ -87,6 +87,8 @@ int main(int argc, char **argv){
 		    
     }
 	//testing();
-    std::cout << "Sum " << sum << std::endl; 
+	std::ofstream outputfile;
+	outputfile.open ("output.csv" , std::ios_base::app);
+    outputfile << myText << "," << sum  << "\n"; 
 	return 0;
 }
