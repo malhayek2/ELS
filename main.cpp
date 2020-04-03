@@ -9,6 +9,7 @@ DAG? **/
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <chrono>
 #include <algorithm> // for min
 //helper functions, min of 3 numbers
 
@@ -79,16 +80,26 @@ int main(int argc, char **argv){
     std::ifstream myfile;
     myfile.open (myText);
     std::string str1, str2;
+    clock_t start_ELS, end_ELS;
+    
+    
+    double count = 0.0;
+    double time_taken_ELS = 0.0;
     int sum = 0;
     while (myfile >> str1 >> str2)
     {
-        sum = sum + ELS(str1,str2, str1.length(), str2.length());
+	   start_ELS = clock();
+       sum = sum + ELS(str1,str2, str1.length(), str2.length());
         //std::cout << "str1" << " -> " << str1 << " str2 " << str2 << " " <<std::endl;
-		    
+	   count++;
+	   end_ELS = clock(); 
+       time_taken_ELS = time_taken_ELS + (double(end_ELS - start_ELS) / double(CLOCKS_PER_SEC)) ;	
     }
+
 	//testing();
+	double aver_time = time_taken_ELS / count;
 	std::ofstream outputfile;
 	outputfile.open ("output.csv" , std::ios_base::app);
-    outputfile << myText << "," << sum  << "\n"; 
+    outputfile << myText << "," << sum  << "," << aver_time << "\n"; 
 	return 0;
 }
